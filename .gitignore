@@ -1,0 +1,14 @@
+# Node
+node_modules/
+npm-debug.log*
+yarn-error.log*
+package-lock.json
+
+# Mini project experiments (mengerjakan latihan di dalam folder ini)
+*.local.js
+scratch/
+
+# OS / editor
+.DS_Store
+.vscode/
+.idea/
