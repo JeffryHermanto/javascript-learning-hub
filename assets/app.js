@@ -220,6 +220,8 @@ async function loadDoc(id) {
       if (window.hljs) hljs.highlightElement(block);
     });
 
+    addCopyButtons(docEl);
+
     const headings = extractHeadings(docEl);
     headingsCache[doc.id] = headings;
     renderToc(doc, headings);
@@ -245,6 +247,39 @@ async function loadDoc(id) {
     </div>`;
     console.error(err);
   }
+}
+
+function addCopyButtons(container) {
+  container.querySelectorAll("pre").forEach((pre) => {
+    const code = pre.querySelector("code");
+    if (!code) return;
+
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "copy-code-btn";
+    btn.textContent = "Copy";
+    btn.addEventListener("click", async () => {
+      try {
+        await navigator.clipboard.writeText(code.innerText);
+      } catch (err) {
+        const range = document.createRange();
+        range.selectNodeContents(code);
+        const selection = window.getSelection();
+        selection.removeAllRanges();
+        selection.addRange(range);
+        document.execCommand("copy");
+        selection.removeAllRanges();
+      }
+      btn.textContent = "Copied!";
+      btn.classList.add("copied");
+      setTimeout(() => {
+        btn.textContent = "Copy";
+        btn.classList.remove("copied");
+      }, 1500);
+    });
+
+    pre.appendChild(btn);
+  });
 }
 
 function handleRoute() {

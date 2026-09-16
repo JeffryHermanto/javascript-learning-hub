@@ -328,6 +328,7 @@ a:hover { text-decoration: underline; }
 }
 
 .doc pre {
+  position: relative;
   background: var(--code-bg);
   border: 1px solid var(--border);
   border-radius: var(--radius);
@@ -343,6 +344,41 @@ a:hover { text-decoration: underline; }
   color: var(--text);
   font-size: 13px;
   line-height: 1.6;
+}
+
+.copy-code-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 9px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--text-dim);
+  font-size: 11.5px;
+  font-family: inherit;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+.doc pre:hover .copy-code-btn,
+.copy-code-btn:focus-visible {
+  opacity: 1;
+}
+
+.copy-code-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.copy-code-btn.copied {
+  opacity: 1;
+  border-color: var(--green);
+  color: var(--green);
 }
 
 .doc table {
